@@ -62,6 +62,20 @@ Route::middleware(['auth', 'check.status'])->group(function () {
             Route::get('delete/{id}', [BrandController::class, 'delete'])->name('delete');
         });
     });
+    //thêm route cho slide show
+    Route::post('logo.update/{id}', [SlideShowController::class, 'updateLogo'])->name('logo.update');
+    Route::prefix('slide-show')->middleware('role:1,2')->group(function () {
+        Route::name('slide-show.')->group(function () {
+            Route::get('search', [SlideShowController::class, 'search'])->name('search');
+            Route::get('list', [SlideShowController::class, 'getList'])->name('list');
+            Route::get('add-new', [SlideShowController::class, 'addNew'])->name('add-new');
+            Route::post('add-new', [SlideShowController::class, 'hdAddNew'])->name('hd-add-new');
+            Route::get('update/{id}', [SlideShowController::class, 'upDate'])->name('update');
+            Route::put('update/{id}', [SlideShowController::class, 'hdUpdate'])->name('hd-update');
+            Route::get('delete/{id}', [SlideShowController::class, 'delete'])->name('delete');
+        });
+    });
+    
     Route::prefix('color')->middleware('role:1,2')->group(function () {
         Route::name('color.')->group(function () {
             Route::get('list', [CapacityColorController::class, 'getListColor'])->name('list');
