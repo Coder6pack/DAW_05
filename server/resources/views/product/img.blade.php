@@ -95,6 +95,7 @@
             }
         });
 
+
         $('.btn-edit').click(function(e) {
             e.preventDefault();
             var imgId = $(this).data('id');
@@ -102,4 +103,6 @@
         });
     });
 </script>
+
 @endsection
+

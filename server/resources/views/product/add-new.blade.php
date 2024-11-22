@@ -6,11 +6,13 @@
     <h3>THÊM MỚI SẢN PHẨM</h3>
 </div>
 @if(session('Error'))
+
 <div class="alert alert-danger d-flex align-items-center" role="alert">
     <div>
         {{session('Error')}}
     </div>
 </div>
+
 @endif
 
 <h5 class="offset-md-6">Thông tin sản phẩm:</h5>
@@ -83,6 +85,7 @@
             <option selected disabled>Chọn camera sau</option>
             @foreach($listRearCamera as $rearCamera)
             <option value="{{$rearCamera->id}}">{{$rearCamera->resolution . ' ' . $rearCamera->record}}</option>
+
             @endforeach
         </select>
         <span class="error" id="error-rear-camera"></span>
@@ -168,7 +171,6 @@
     <div class="product_plus">
         <button type="button" id="btn-them" class="btn btn-success"><span data-feather="plus"></span>Thêm</button>
     </div>
-
 <br />
 
 <form method="POST" action="{{ route('product.hd-add-new') }}" enctype="multipart/form-data">
@@ -270,6 +272,7 @@
                 updateHiddenFields();
             }
         });
+
 
         $('#tb-ds-product').on('click', '.btn-xoa', function() {
             $(this).closest('tr').remove();
@@ -419,6 +422,7 @@
             $('#hd-os').val($('#os').val());
         });
 
+
         $('#brand,#product-series-id, #size-screen, #front-camera, #rear-camera').on('change', function() {
             $('#brand-id').val($('#brand').val());
             $('#hd-product-series-id').val($('#product-series-id').val());
@@ -427,6 +431,7 @@
             $('#hd-rear-camera').val($('#rear-camera').val());
         });
 
+
         $('#product-series-id').on('change', function() {
             var selectedSeries = $(this).find(':selected').text().trim();
             $('#name').val(selectedSeries);
@@ -434,5 +439,5 @@
     });
 </script>
 
-
 @endsection
+

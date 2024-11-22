@@ -281,7 +281,6 @@
             });
         }
     });
-
     $(document).on('click', '.btn-xoa', function() {
         const productId = $(this).data('id');
 
