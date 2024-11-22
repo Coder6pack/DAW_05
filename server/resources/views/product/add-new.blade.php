@@ -6,11 +6,13 @@
     <h3>THÊM MỚI SẢN PHẨM</h3>
 </div>
 @if(session('Error'))
-    <div class="alert alert-danger d-flex align-items-center" role="alert">
-        <div>
-            {{session('Error')}}
-        </div>
+
+<div class="alert alert-danger d-flex align-items-center" role="alert">
+    <div>
+        {{session('Error')}}
     </div>
+</div>
+
 @endif
 
 <h5 class="offset-md-6">Thông tin sản phẩm:</h5>
@@ -20,9 +22,9 @@
         <select name="brand" class="form-select" id="brand" require>
             <option selected disabled>Chọn hãng sản phẩm</option>
             @foreach($listBrand as $Brand)
-                <option value="{{ $Brand->id }}">
-                    {{ $Brand->name }}
-                </option>
+            <option value="{{ $Brand->id }}">
+                {{ $Brand->name }}
+            </option>
             @endforeach
         </select>
         <span class="error" id="error-brand"></span>
@@ -32,9 +34,9 @@
         <select class="form-select" id="product-series-id" require>
             <option selected disabled>Chọn dòng sản phẩm</option>
             @foreach($listSeries as $ProductSeries)
-                <option value="{{ $ProductSeries->id }}">
-                    {{ $ProductSeries->name }}
-                </option>
+            <option value="{{ $ProductSeries->id }}">
+                {{ $ProductSeries->name }}
+            </option>
             @endforeach
         </select>
         <span class="error" id="error-product-series-id"></span>
@@ -44,16 +46,15 @@
         <input type="text" id="chip" class="form-control" name="chip" id="chip" value="{{ old('chip') }}">
         <span class="error" id="error-chip"></span>
         @error('chip')
-            <span class="error-message"> {{ $message }} </span>
+        <span class="error-message"> {{ $message }} </span>
         @enderror
     </div>
     <div class="col-md-3">
         <label for="weight" class="form-label">Trọng lượng(g):</label>
-        <input type="number" id="weight" class="form-control" id="weight" name="weight" step="0.1"
-            value="{{ old('weight') }}">
+        <input type="number" id="weight" class="form-control" id="weight" name="weight" step="0.1" value="{{ old('weight') }}">
         <span class="error" id="error-weight"></span>
         @error('weight')
-            <span class="error-message"> {{ $message }} </span>
+        <span class="error-message"> {{ $message }} </span>
         @enderror
     </div>
 </div>
@@ -63,7 +64,7 @@
         <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
         <span class="error" id="error-name"></span>
         @error('name')
-            <span class="error-message"> {{ $message }} </span>
+        <span class="error-message"> {{ $message }} </span>
         @enderror
     </div>
 
@@ -72,7 +73,7 @@
         <select name="front_camera" class="form-select" id="front-camera" required>
             <option selected disabled>Chọn camera trước</option>
             @foreach($listFrontCamera as $frontCamera)
-                <option value="{{$frontCamera->id}}">{{$frontCamera->resolution . ' ' . $frontCamera->record}}</option>
+            <option value="{{$frontCamera->id}}">{{$frontCamera->resolution . ' ' . $frontCamera->record}}</option>
             @endforeach
         </select>
         <span class="error" id="error-front-camera"></span>
@@ -83,7 +84,8 @@
         <select name="rear_camera" class="form-select" id="rear-camera" required>
             <option selected disabled>Chọn camera sau</option>
             @foreach($listRearCamera as $rearCamera)
-                <option value="{{$rearCamera->id}}">{{$rearCamera->resolution . ' ' . $rearCamera->record}}</option>
+            <option value="{{$rearCamera->id}}">{{$rearCamera->resolution . ' ' . $rearCamera->record}}</option>
+
             @endforeach
         </select>
         <span class="error" id="error-rear-camera"></span>
@@ -92,15 +94,14 @@
 <div class="row">
     <div class="col-md-6">
         <label for="description" class="form-label">Mô tả:</label>
-        <textarea type="text" id="description" class="form-control" id="description"
-            name="description">{{ old('description') }}</textarea>
+        <textarea type="text" id="description" class="form-control" id="description" name="description">{{ old('description') }}</textarea>
     </div>
     <div class="col-md-3 ">
         <label for="size-screen" class="form-label">Độ phân giải - Màn hình:</label>
         <select name="size_screen" class="form-select" id="size-screen" required>
             <option selected disabled>Chọn độ phân giải - màn hình</option>
             @foreach($listScreen as $Screen)
-                <option value="{{$Screen->id}}">{{$Screen->resolution . ' - ' . $Screen->size}}</option>
+            <option value="{{$Screen->id}}">{{$Screen->resolution . ' - ' . $Screen->size}}</option>
             @endforeach
         </select>
         <span class="error" id="error-size-screen"></span>
@@ -110,7 +111,7 @@
         <input type="text" class="form-control" name="os" id="os" value="{{ old('os') }}">
         <span class="error" id="error-os"></span>
         @error('os')
-            <span class="error-message"> {{ $message }} </span>
+        <span class="error-message"> {{ $message }} </span>
         @enderror
     </div>
 </div>
@@ -120,7 +121,7 @@
         <input type="text" id="sims" class="form-control" name="sims" id="sims" value="{{ old('sims') }}">
         <span class="error" id="error-sims"></span>
         @error('sims')
-            <span class="error-message"> {{ $message }} </span>
+        <span class="error-message"> {{ $message }} </span>
         @enderror
     </div>
     <div class="col-md-3">
@@ -128,7 +129,7 @@
         <input type="number" class="form-control" name="battery" id="battery" value="{{ old('battery') }}">
         <span class="error" id="error-battery"></span>
         @error('battery')
-            <span class="error-message"> {{ $message }} </span>
+        <span class="error-message"> {{ $message }} </span>
         @enderror
     </div>
     <div class="col-md-3 offset-md-6">
@@ -136,7 +137,7 @@
         <input type="number" class="form-control" id="ram" value="{{ old('ram') }}">
         <span class="error" id="error-ram"></span>
         @error('ram')
-            <span class="error-message"> {{ $message }} </span>
+        <span class="error-message"> {{ $message }} </span>
         @enderror
     </div>
 </div>
@@ -147,30 +148,29 @@
         <label for="colors" class="form-label">Chọn màu:</label>
         <select name="colors[]" class="form-select" id="colors" multiple>
             @foreach($listColors as $color)
-                <option value="{{$color->id}}">{{$color->name}}</option>
+            <option value="{{$color->id}}">{{$color->name}}</option>
             @endforeach
         </select>
         @error('colors')
-            <span class="error-message">{{ $message }}</span>
+        <span class="error-message">{{ $message }}</span>
         @enderror
     </div>
     <div class="col-md-3">
         <label for="capacities" class="form-label">Chọn dung lượng:</label>
         <select name="capacities[]" class="form-select" id="capacities" multiple>
             @foreach($listCapacity as $capacity)
-                <option value="{{$capacity->id}}">{{$capacity->name}}</option>
+            <option value="{{$capacity->id}}">{{$capacity->name}}</option>
             @endforeach
         </select>
         @error('capacities')
-            <span class="error-message">{{ $message }}</span>
+        <span class="error-message">{{ $message }}</span>
         @enderror
     </div>
 </div>
 
-<div class="product_plus">
-    <button type="button" id="btn-them" class="btn btn-success"><span data-feather="plus"></span>Thêm</button>
-</div>
-
+    <div class="product_plus">
+        <button type="button" id="btn-them" class="btn btn-success"><span data-feather="plus"></span>Thêm</button>
+    </div>
 <br />
 
 <form method="POST" action="{{ route('product.hd-add-new') }}" enctype="multipart/form-data">
@@ -214,10 +214,10 @@
 
 @section('page-js')
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         var count = 0;
 
-        $('#btn-them').on('click', function () {
+        $('#btn-them').on('click', function() {
 
             if (!validateInput()) {
                 return;
@@ -238,11 +238,11 @@
             var addedEntries = false;
 
             // Check each selected color and capacity combination
-            colors.forEach(function (color) {
-                capacities.forEach(function (capacity) {
+            colors.forEach(function(color) {
+                capacities.forEach(function(capacity) {
                     // Check if the combination already exists in the table
                     var exists = false;
-                    $('#tb-ds-product tbody tr').each(function () {
+                    $('#tb-ds-product tbody tr').each(function() {
                         var existingColor = $(this).find('td:nth-child(2)').data('id');
                         var existingCapacity = $(this).find('td:nth-child(3)').data('id');
                         if (existingColor == color && existingCapacity == capacity) {
@@ -273,7 +273,8 @@
             }
         });
 
-        $('#tb-ds-product').on('click', '.btn-xoa', function () {
+
+        $('#tb-ds-product').on('click', '.btn-xoa', function() {
             $(this).closest('tr').remove();
             updateTableIndexes();
             updateHiddenFields();
@@ -281,7 +282,7 @@
 
         // Function to update table row indexes
         function updateTableIndexes() {
-            $('#tb-ds-product tbody tr').each(function (index, row) {
+            $('#tb-ds-product tbody tr').each(function(index, row) {
                 $(row).find('td:first').text(index + 1);
             });
         }
@@ -401,7 +402,7 @@
         function updateHiddenFields() {
             var selectedColors = [];
             var selectedCapacities = [];
-            $('#tb-ds-product tbody tr').each(function () {
+            $('#tb-ds-product tbody tr').each(function() {
                 selectedColors.push($(this).find('td:nth-child(2)').data('id'));
                 selectedCapacities.push($(this).find('td:nth-child(3)').data('id'));
             });
@@ -410,7 +411,7 @@
         }
 
         // Event handlers for other fields (name, chip, weight, description, sims, battery, brand, size-screen, front-camera, rear-camera)
-        $('#name, #chip, #weight, #description, #sims, #battery, #ram, #os').on('input', function () {
+        $('#name, #chip, #weight, #description, #sims, #battery, #ram, #os').on('input', function() {
             $('#product-name').val($('#name').val());
             $('#hd-chip').val($('#chip').val());
             $('#hd-weight').val($('#weight').val());
@@ -421,7 +422,8 @@
             $('#hd-os').val($('#os').val());
         });
 
-        $('#brand,#product-series-id, #size-screen, #front-camera, #rear-camera').on('change', function () {
+
+        $('#brand,#product-series-id, #size-screen, #front-camera, #rear-camera').on('change', function() {
             $('#brand-id').val($('#brand').val());
             $('#hd-product-series-id').val($('#product-series-id').val());
             $('#hd-screen').val($('#size-screen').val());
@@ -429,12 +431,13 @@
             $('#hd-rear-camera').val($('#rear-camera').val());
         });
 
-        $('#product-series-id').on('change', function () {
+
+        $('#product-series-id').on('change', function() {
             var selectedSeries = $(this).find(':selected').text().trim();
             $('#name').val(selectedSeries);
         });
     });
 </script>
 
-
 @endsection
+

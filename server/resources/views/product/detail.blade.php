@@ -12,12 +12,12 @@
             <div class="info-label">Hình ảnh:</div>
             <div class="image-gallery">
                 @foreach($listImg->groupBy('color_id') as $colorId => $images)
-                    <div class="color-group">
-                        <label class="name_color_product_detail">{{ $images->first()->color->name }}</label>
-                        @foreach($images as $img)
-                            <img src="{{ asset($img->img_url) }}" alt="Product Image" class="product-image">
-                        @endforeach
-                    </div>
+                <div class="color-group">
+                    <label class="name_color_product_detail">{{ $images->first()->color->name }}</label>
+                    @foreach($images as $img)
+                    <img src="{{ asset($img->img_url) }}" alt="Product Image" class="product-image">
+                    @endforeach
+                </div>
                 @endforeach
 
             </div>
@@ -69,38 +69,35 @@
             </div>
         </div>
     </div>
-    <a href="{{ route('product.update-images', ['id' => $proDuct->id]) }}" class="btn btn-outline-info"><i
-            class="fas fa-camera"></i>Cập nhật hình ảnh</a> |
-    <a href="{{ route('product.update', ['id' => $proDuct->id]) }}" class="btn btn-outline-primary"><i
-            class="fas fa-edit"></i>Cập nhật thông số</a>
+    <a href="{{ route('product.update-images', ['id' => $proDuct->id]) }}" class="btn btn-outline-info"><i class="fas fa-camera"></i>Cập nhật hình ảnh</a> |
+    <a href="{{ route('product.update', ['id' => $proDuct->id]) }}" class="btn btn-outline-primary"><i class="fas fa-edit"></i>Cập nhật thông số</a>
 </div>
 @if(isset($listProductDetail) && $listProductDetail->isNotEmpty())
-    <div class="table-responsive">
-        <table class="table product_detail">
-            <thead>
-                <tr class="title_sp">
-                    <th>Sản phẩm</th>
+<div class="table-responsive">
+    <table class="table product_detail">
+        <thead>
+            <tr class="title_sp">
+                <th>Sản phẩm</th>
 
-                    <th>Giá bán</th>
-                    <th>Số lượng tồn</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($listProductDetail as $productDetail)
-                    <tr>
+                <th>Giá bán</th>
+                <th>Số lượng tồn</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($listProductDetail as $productDetail)
+            <tr>
 
-                        <td>{{ $productDetail->product->name }} - {{ $productDetail->color->name }} -
-                            {{ $productDetail->capacity->name }}
-                        </td>
-                        <td>{{ $productDetail->price_formatted }}</td>
-                        <td>{{ $productDetail->quantity }}</td>
-                    <tr>
+                <td>{{ $productDetail->product->name }} - {{ $productDetail->color->name }} - {{ $productDetail->capacity->name }}</td>
+                <td>{{ $productDetail->price_formatted }}</td>
+                <td>{{ $productDetail->quantity }}</td>
+            <tr>
                 @endforeach
-            </tbody>
-        </table>
-@else
+        </tbody>
+    </table>
+    @else
     <h6></h6>
-@endif
+    @endif
 
 </div>
 @endsection
+
