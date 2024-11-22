@@ -10,6 +10,10 @@ use App\Http\Controllers\CapacityColorController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\StatisticalController;
+use App\Http\Controllers\WarehouseController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\PDFController;
+
 
 Route::middleware(['auth', 'check.status'])->group(function () {
     Route::prefix('admin')->middleware('role:1')->group(function () {
@@ -105,6 +109,35 @@ Route::middleware(['auth', 'check.status'])->group(function () {
 
     Route::get('statistical-year', [StatisticalController::class, 'statisticalYear'])->name('statistical-year')->middleware('role:1');
     Route::post('invoices/status-counts', [StatisticalController::class, 'hdstatisticalDay'])->name('statistical-counts')->middleware('role:1');
+
+    Route::prefix('warehouse')->middleware('role:1,3')->group(function () {
+        Route::name('warehouse.')->group(function () {
+            Route::get('search', [WarehouseController::class, 'search'])->name('search');
+            Route::get('list', [WarehouseController::class, 'getList'])->name('list');
+            Route::get('add-new', [WarehouseController::class, 'addNew'])->name('add-new');
+            Route::get('detail/{id}', [WarehouseController::class, 'warehouseDetail'])->name('detail');
+            Route::get('get-product', [WarehouseController::class, 'getProduct'])->name('get-product');
+            Route::post('add-new', [WarehouseController::class, 'hdAddNew'])->name('hd-add-new');
+            Route::post('import', [WareHouseController::class, 'importExcel'])->name('import');
+            Route::get('/getProductDetailsBySeries/{id}', [WareHouseController::class, 'getProductDetailsBySeries']);
+        });
+    });
+    Route::get('/get-product-ajax', [InvoiceController::class, 'getProduct'])->name('get-product-ajax')->middleware('role:1,2');
+    Route::prefix('invoice')->middleware('role:1,2')->group(function () {
+        Route::name('invoice.')->group(function () {
+            Route::get('search', [InvoiceController::class, 'search'])->name('search');
+            Route::get('list', [InvoiceController::class, 'getList'])->name('list');
+            // Route::get('add-new',[InvoiceController::class, 'addNew'])->name('add-new');
+            Route::get('detail/{id}', [InvoiceController::class, 'invoiceDetail'])->name('detail');
+            Route::get('get-product', [InvoiceController::class, 'getProduct'])->name('get-product-ajax');
+            // Route::post('add-new',[InvoiceController::class, 'hdAddNew'])->name('hd-add-new');
+            Route::get('update-status-cancel/{id}', [InvoiceController::class, 'updateStatusCancel'])->name('update-status-cancel');
+            Route::get('update-status-approved/{id}', [InvoiceController::class, 'updateStatusApproved'])->name('update-status-approved');
+            Route::get('update-status-delivering/{id}', [InvoiceController::class, 'updateStatusDelivering'])->name('update-status-delivering');
+            Route::get('update-status-complete/{id}', [InvoiceController::class, 'updateStatusComplete'])->name('update-status-complete');
+            Route::get('export/{id}', [PDFController::class, 'exportInvoice'])->name('export');
+        });
+    });
 
     // route khac
 });
