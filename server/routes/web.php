@@ -114,3 +114,5 @@ Route::middleware('guest')->group(function () {
     Route::get('password-reset', [LoginController::class, 'passWordReset'])->name('password-reset');
     Route::post('password-reset', [LoginController::class, 'hdPasswordReset'])->name('hd-password-reset');
 });
+
+// hello
