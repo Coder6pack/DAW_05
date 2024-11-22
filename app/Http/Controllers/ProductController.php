@@ -204,7 +204,7 @@ class ProductController extends Controller
                         // Kiểm tra kích thước của từng tệp tin
                         $maxSize = 10240; // 10MB
                         if ($file->getSize() <= $maxSize * 1024) { // Chuyển đổi sang byte
-                            $path = $file->store('img-product');
+                            $path = $file->move('img-product');
                             $paths[] = [
                                 'color_id' => $colorId,
                                 'path' => $path
@@ -251,7 +251,7 @@ class ProductController extends Controller
                     Storage::delete($image->img_url);
                 }
 
-                $path = $file->store('img-product');
+                $path = $file->move('img-product');
                 $image->img_url = $path;
                 $image->save();
                 return redirect()->back()->with('Success', 'Cập nhật hình ảnh thành công!');

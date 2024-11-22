@@ -13,6 +13,11 @@ use App\Http\Controllers\StatisticalController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\SlideShowController;
+use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\CommentController;
 
 
 Route::middleware(['auth', 'check.status'])->group(function () {
@@ -136,6 +141,62 @@ Route::middleware(['auth', 'check.status'])->group(function () {
             Route::get('update-status-delivering/{id}', [InvoiceController::class, 'updateStatusDelivering'])->name('update-status-delivering');
             Route::get('update-status-complete/{id}', [InvoiceController::class, 'updateStatusComplete'])->name('update-status-complete');
             Route::get('export/{id}', [PDFController::class, 'exportInvoice'])->name('export');
+        });
+    });
+    Route::prefix('slide-show')->middleware('role:1,2')->group(function () {
+        Route::name('slide-show.')->group(function () {
+            Route::get('search', [SlideShowController::class, 'search'])->name('search');
+            Route::get('list', [SlideShowController::class, 'getList'])->name('list');
+            Route::get('add-new', [SlideShowController::class, 'addNew'])->name('add-new');
+            Route::post('add-new', [SlideShowController::class, 'hdAddNew'])->name('hd-add-new');
+            Route::get('update/{id}', [SlideShowController::class, 'upDate'])->name('update');
+            Route::put('update/{id}', [SlideShowController::class, 'hdUpdate'])->name('hd-update');
+            Route::get('delete/{id}', [SlideShowController::class, 'delete'])->name('delete');
+        });
+    });
+    Route::post('logo.update/{id}', [SlideShowController::class, 'updateLogo'])->name('logo.update');
+    Route::prefix('provider')->middleware('role:1,3')->group(function () {
+        Route::name('provider.')->group(function () {
+            Route::get('search', [ProviderController::class, 'search'])->name('search');
+            Route::get('list', [ProviderController::class, 'getList'])->name('list');
+            Route::get('add-new', [ProviderController::class, 'addNew'])->name('add-new');
+            Route::post('add-new', [ProviderController::class, 'hdAddNew'])->name('hd-add-new');
+            Route::get('update/{id}', [ProviderController::class, 'upDate'])->name('update');
+            Route::post('update/{id}', [ProviderController::class, 'hdUpdate'])->name('hd-update');
+            Route::get('delete/{id}', [ProviderController::class, 'delete'])->name('delete');
+        });
+    });
+    Route::prefix('news')->middleware('role:1,2')->group(function () {
+        Route::name('news.')->group(function () {
+            Route::get('search', [NewsController::class, 'search'])->name('search');
+            Route::get('list', [NewsController::class, 'getList'])->name('list');
+            Route::get('add-new', [NewsController::class, 'addNew'])->name('add-new');
+            Route::post('add-new', [NewsController::class, 'hdAddNew'])->name('hd-add-new');
+            Route::get('update/{id}', [NewsController::class, 'upDate'])->name('update');
+            Route::put('update/{id}', [NewsController::class, 'hdUpdate'])->name('hd-update');
+            Route::get('delete/{id}', [NewsController::class, 'delete'])->name('delete');
+        });
+    });
+    Route::prefix('discount')->middleware('role:1')->group(function () {
+        Route::name('discount.')->group(function () {
+            Route::get('search', [DiscountController::class, 'search'])->name('search');
+            Route::get('list', [DiscountController::class, 'getList'])->name('list');
+            Route::get('detail/{id}', [DiscountController::class, 'getDetail'])->name('detail');
+            Route::get('add-new', [DiscountController::class, 'addNew'])->name('add-new');
+            Route::post('add-new', [DiscountController::class, 'hdAddNew'])->name('hd-add-new');
+            Route::get('get-product-ajax', [DiscountController::class, 'getProduct'])->name('get-product-ajax');
+            Route::get('update/{id}', [DiscountController::class, 'upDate'])->name('update');
+            Route::post('update/{id}', [DiscountController::class, 'hdUpdate'])->name('hd-update');
+            Route::get('delete/{id}', [DiscountController::class, 'delete'])->name('delete');
+        });
+    });
+    Route::prefix('comment')->middleware('role:1,2')->group(function () {
+        Route::name('comment.')->group(function () {
+            Route::get('search', [SlideShowController::class, 'search'])->name('search');
+            Route::get('list', [CommentController::class, 'getList'])->name('list');
+            Route::get('rep/{id}', [CommentController::class, 'Rep'])->name('rep');
+            Route::post('rep', [CommentController::class, 'hdRep'])->name('hd-rep');
+            Route::delete('comment/{id}', [CommentController::class, 'delete'])->name('delete');
         });
     });
 

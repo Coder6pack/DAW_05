@@ -90,8 +90,7 @@
                     <tr>
 
                         <td>{{ $productDetail->product->name }} - {{ $productDetail->color->name }} -
-                            {{ $productDetail->capacity->name }}
-                        </td>
+                            {{ $productDetail->capacity->name }}</td>
                         <td>{{ $productDetail->price_formatted }}</td>
                         <td>{{ $productDetail->quantity }}</td>
                     <tr>

@@ -55,7 +55,7 @@ class AdminController extends Controller
             $newAdmin = new Admin();
 
             if (isset($file)) {
-                $path = $file->store('avt');
+                $path = $file->move('avt');
                 $newAdmin->avatar_url = $path;
             }
 
@@ -116,7 +116,7 @@ class AdminController extends Controller
                 if ($aDmin->avatar_url) {
                     Storage::delete($aDmin->avatar_url);
                 }
-                $path = $file->store('avt');
+                $path = $file->move('avt');
                 $aDmin->avatar_url = $path;
             }
             $aDmin->name = $request->name;
@@ -207,7 +207,7 @@ class AdminController extends Controller
         if (isset($request->avatar)) {
             Storage::delete($aDmin->avatar_url);
             $file = $request->avatar;
-            $path = $file->store('avt');
+            $path = $file->move('avt');
             $aDmin->avatar_url = $path;
         }
         $aDmin->username = $request->username;
