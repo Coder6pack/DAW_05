@@ -42,7 +42,7 @@ class SlideShowController extends Controller
             $file = $request->file('img_url');
             $slideshow = new SlideShow();
             if (isset($file)) {
-                $path = $file->store('slide');
+                $path = $file->move('slide');
                 $slideshow->img_url = $path;
             }
             $slideshow->product_id = $request->product;
@@ -73,7 +73,7 @@ class SlideShowController extends Controller
 
             if (isset($file)) {
                 Storage::delete($slideshow->img_url);
-                $path = $file->store('slide');
+                $path = $file->move('slide');
                 $slideshow->img_url = $path;
             }
             $slideshow->product_id = $request->product_id;
@@ -93,7 +93,7 @@ class SlideShowController extends Controller
 
             if (isset($file)) {
                 Storage::delete($loGo->img_url);
-                $path = $file->store('logo');
+                $path = $file->move('logo');
                 $loGo->img_url = $path;
             }
             $loGo->save();
