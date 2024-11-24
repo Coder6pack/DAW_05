@@ -10,6 +10,7 @@ use App\Http\Controllers\APICartController;
 use App\Http\Controllers\APIInvoiceController;
 use App\Http\Controllers\APINewsController;
 use App\Http\Controllers\APISlidesController;
+use App\Http\Controllers\VNPayController;
 
 Route::post('login', 'APIAuthController@login');
 Route::post('logout', [APIAuthController::class, 'logout']);
@@ -49,4 +50,11 @@ Route::get('/get-news', [APINewsController::class, "listNews"]);
 Route::get('/get-news/{title}', [APINewsController::class, "listNewDetail"]);
 
 Route::get('/slides', [APISlidesController::class, "listSlides"]);
+
+Route::post('/vnpay-payment', [VNPayController::class, "createPayment"]);
+Route::post('/vnpay/index', [VNPayController::class, 'index']);
+Route::post('/vnpay/ipn', [VNPayController::class, 'ipn']);
+Route::post('/vnpay/pay', [VNPayController::class, 'pay']);
+Route::post('/vnpay/refund', [VNPayController::class, 'refund']);
+Route::get('/vnpay/return', [VnPayController::class, 'return'])->name('vnpay.return');
 
