@@ -41,7 +41,7 @@ class NewsController extends Controller
             $news = new News();
 
             if (isset($file)) {
-                $path = $file->store('new');
+                $path = $file->move('new');
 
                 $news->img_url = $path;
             }
@@ -70,7 +70,7 @@ class NewsController extends Controller
             $news = News::findOrFail($id);
 
             if (isset($file)) {
-                $path = $file->store('new');
+                $path = $file->move('new');
 
                 $news->img_url = $path;
             }
