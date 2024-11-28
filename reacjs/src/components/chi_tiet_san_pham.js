@@ -174,10 +174,75 @@ function CTSanPham(props) {
         return numeral(so).format('0,0');
     }
 
+
+
     useEffect(() => {
         setBinhLuan(props.data?.comment);
         setSoSao(props.data?.rate.filter(rate => rate.capacity_id === selectedCapacityId));
     }, [props.data.comment]);
+
+
+    useEffect(() => {
+        const danhGiaProps = props.data?.rate || [];
+        setRate(danhGiaProps);
+        tongSoSao1(selectedCapacityId);
+    }, [props.data, selectedCapacityId]);
+
+    const thongKeSoSao = () => {
+        const thongKe = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+        if (filteredRates && selectedCapacityId) {
+            filteredRates.forEach((danhGiaItem) => {
+                const star = Math.floor(danhGiaItem.star);
+                if (star >= 1 && star <= 5 && danhGiaItem.capacity_id === selectedCapacityId) {
+                    thongKe[star]++;
+                }
+            });
+        }
+
+        return thongKe;
+    };
+
+    //THÊM VÀO GIỎ HÀNG
+
+    const themVaoGioHandler = () => {
+        const chiTietSanPhamSelected = props.data.product_detail.find(item =>
+            item.capacity.name === selectedCapacity && item.color.name === selectedColor);
+
+        if (!chiTietSanPhamSelected) {
+            alert('Không tìm thấy chi tiết sản phẩm!');
+            return;
+        }
+
+        const { quantity } = chiTietSanPhamSelected;
+
+        if (quantity <= 0) {
+            alert('Sản phẩm này hiện đã hết hàng!');
+            return;
+        }
+
+        const addCart = {
+            quantity: Count,
+            product_id: chiTietSanPhamSelected.product_id,
+            customer_id: localStorage.getItem('id'),
+            capacity_id: chiTietSanPhamSelected.capacity.id,
+            color_id: chiTietSanPhamSelected.color.id,
+        };
+
+
+        axios.post('http://127.0.0.1:8000/api/add-cart', {
+            productData: addCart,
+        })
+            .then(response => {
+                alert(response.data.message);
+            })
+            .catch(error => {
+                alert(error.response.data.message);
+            });
+
+    }
+
+    
 
 
 
