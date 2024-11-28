@@ -4,9 +4,7 @@ import { faStar as fullStar, faStarHalfAlt as halfStar } from '@fortawesome/free
 import { faStar as emptyStar } from '@fortawesome/free-regular-svg-icons';
 
 const StarRating = ({ rating }) => {
-    const fullStars = Math.floor(rating);
-    const halfStars = rating % 1 >= 0.5 ? 1 : 0;
-    const emptyStars = 5 - fullStars - halfStars;
+    
     return (
         <span className='star-product'>
             <span>{rating}</span>
