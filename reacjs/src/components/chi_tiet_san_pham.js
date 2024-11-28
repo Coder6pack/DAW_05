@@ -242,8 +242,38 @@ function CTSanPham(props) {
 
     }
 
-    
 
+    const renderThongKe = () => {
+        const thongKe = thongKeSoSao();
+        const soLuongDanhGia = Object.values(thongKe).reduce((acc, cur) => acc + cur, 0);
+        const averageRating = soLuongDanhGia > 0 ? (sumStar / soLuongDanhGia).toFixed(1) : 0;
+
+        return (
+            <>
+                <h3 className="danh-gia-chi-tiet">Đánh giá {props.data.name} - {selectedCapacity}</h3>
+                {
+                    soLuongDanhGia <= 0 ? (
+                        <span className="so-luot-danh-gia"> Chưa có đánh giá nào!</span>
+                    ) : (
+                        <>
+                            <span className="so-sao-sp">
+                                <StarRating rating={averageRating} />
+                            </span>
+                            <span className="so-luot-danh-gia">{soLuongDanhGia} đánh giá</span>
+                        </>
+                    )
+                }
+
+                <ul className="ul-danh-gia">
+                    {Object.keys(thongKe).reverse().map((sao) => (
+                        <li key={sao} className="li-danh-gia">
+                            {parseInt(sao, 10)} <FontAwesomeIcon style={{ color: 'orange' }} icon={faStar} />: {thongKe[sao]} người đánh giá
+                        </li>
+                    ))}
+                </ul>
+            </>
+        );
+    };
 
 
     return (
