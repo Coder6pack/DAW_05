@@ -44,6 +44,93 @@ function Product(props) {
         }
     }, [props.member]);
 
+    const updateAverageRating = (capacityId) => {
+
+        if (props.member && props.member.rate && props.member.rate.length > 0) {
+            const filteredRates = props.member.rate.filter(rate => rate.capacity_id === capacityId);
+            if (filteredRates.length > 0) {
+                const totalStars = filteredRates.reduce((acc, curr) => acc + parseInt(curr.star), 0);
+                const average = totalStars / filteredRates.length;
+                setAverageRating(parseFloat(average).toFixed(1));
+            } else {
+                setAverageRating(null);
+            }
+        } else {
+            setAverageRating(null);
+        }
+    };
+
+    const handleCapacityChange = (event, capacity) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setSelectedCapacity(capacity);
+        updateAvailableColors(capacity);
+
+
+        const firstAvailableColor = props.member.product_detail.find(item => item.capacity.name === capacity)?.color.name;
+        setSelectedColor(firstAvailableColor);
+
+        const detail = props.member.product_detail.find(item => item.capacity.name === capacity && item.color.name === firstAvailableColor);
+        if (detail) {
+            const discountPrice = detail.discount_detail.length > 0 ? DoiThanhTien(detail.discount_detail[0].price) : '';
+            setCurrentDiscount(discountPrice);
+            const preCent = detail.discount_detail.length > 0 ? detail.discount_detail[0].percent : '';
+            setCurrentPercent(preCent);
+            setCurrentPrice(DoiThanhTien(detail.price));
+            setSelectedCapacityId(detail.capacity.id);
+            updateAverageRating(detail.capacity.id);
+        }
+    };
+
+
+    const DoiThanhTien = (soTien) => {
+        const so = parseFloat(soTien);
+        return numeral(so).format('0,0');
+    };
+
+    const handleColorChange = (event, color) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setSelectedColor(color);
+
+        const detail = props.member.product_detail.find(item => item.capacity.name === selectedCapacity && item.color.name === color);
+        if (detail) {
+            const discountPrice = detail.discount_detail.length > 0 ? DoiThanhTien(detail.discount_detail[0].price) : '';
+            setCurrentDiscount(discountPrice);
+            setCurrentPrice(DoiThanhTien(detail.price));
+            const preCent = detail.discount_detail.length > 0 ? detail.discount_detail[0].percent : '';
+            setCurrentPercent(preCent);
+        }
+    };
+
+    const updateAvailableColors = (capacity) => {
+        const colors = props.member.product_detail
+            .filter(item => item.capacity.name === capacity)
+            .map(item => item.color.name);
+        setAvailableColors(colors);
+        if (colors.length > 0) {
+            setSelectedColor(colors[0]);
+            const detail = props.member.product_detail.find(item => item.capacity.name === capacity && item.color.name === colors[0]);
+            if (detail) {
+                const discountPrice = detail.discount_detail.length > 0 ? DoiThanhTien(detail.discount_detail[0].price) : '';
+                setCurrentDiscount(discountPrice);
+                const preCent = detail.discount_detail.length > 0 ? detail.discount_detail[0].percent : '';
+                setCurrentPercent(preCent);
+                setCurrentPrice(DoiThanhTien(detail.price));
+            }
+        }
+    };
+    const getUniqueDungLuongs = (chiTietSanPham) => {
+        const unique = new Map();
+        return chiTietSanPham.filter(item => {
+            const isUnique = !unique.has(item.capacity.name);
+            unique.set(item.capacity.name, true);
+            return isUnique;
+        });
+    };
+
+    const isSelectedCapacity = (capacity) => selectedCapacity === capacity ? "selected" : "";
+    const isSelectedColor = (color) => selectedColor === color ? "selected" : "";
 
    
     return (
