@@ -391,8 +391,35 @@ function CTSanPham(props) {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
+        nextArrow: <SampleNextArrow />,
+        prevArrow: <SamplePrevArrow />,
         beforeChange: (current, next) => setSelectedImageIndex(next),
     };
+
+    function SampleNextArrow(props) {
+        const { className, style, onClick } = props;
+        return (
+            <div
+                className={className}
+                style={{ ...style, display: "block", background: "blue" }}
+                onClick={onClick}
+            />
+        );
+    }
+
+    function SamplePrevArrow(props) {
+        const { className, style, onClick } = props;
+        return (
+            <div
+                className={className}
+                style={{ ...style, display: "block", background: "green" }}
+                onClick={onClick}
+            />
+        );
+    }
+
+    const filteredComments = binhLuan.filter(comment => comment.capacity_id === selectedCapacityId);
+    const filteredRates = raTe.filter(rate => rate.capacity_id === selectedCapacityId);
 
 
 
