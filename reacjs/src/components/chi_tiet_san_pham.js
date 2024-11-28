@@ -88,7 +88,6 @@ function CTSanPham(props) {
         return groups;
     };
 
-    //CẬP NHẬT LIÊN TỤC TRẠNG THÁI SẢN PHẨM
     useEffect(() => {
 
         if (props.data.product_detail.length > 0) {
@@ -203,7 +202,6 @@ function CTSanPham(props) {
         return thongKe;
     };
 
-    //THÊM VÀO GIỎ HÀNG
 
     const themVaoGioHandler = () => {
         const chiTietSanPhamSelected = props.data.product_detail.find(item =>
@@ -243,6 +241,7 @@ function CTSanPham(props) {
     }
 
 
+
     const renderThongKe = () => {
         const thongKe = thongKeSoSao();
         const soLuongDanhGia = Object.values(thongKe).reduce((acc, cur) => acc + cur, 0);
@@ -274,6 +273,63 @@ function CTSanPham(props) {
             </>
         );
     };
+
+    const chonMuaHandler = () => {
+
+        const chiTietSanPhamSelected = props.data.product_detail.find(item =>
+            item.capacity.name === selectedCapacity && item.color.name === selectedColor);
+
+        if (!chiTietSanPhamSelected) {
+            alert('Không tìm thấy chi tiết sản phẩm!');
+            return;
+        }
+
+        const { quantity } = chiTietSanPhamSelected;
+
+        if (quantity <= 0) {
+            alert('Sản phẩm này hiện đã hết hàng!');
+            return;
+        }
+
+        const addCart = {
+            quantity: Count,
+            product_id: chiTietSanPhamSelected.product_id,
+            customer_id: localStorage.getItem('id'),
+            capacity_id: chiTietSanPhamSelected.capacity.id,
+            color_id: chiTietSanPhamSelected.color.id,
+        };
+
+        axios.post('http://127.0.0.1:8000/api/add-cart', {
+            productData: addCart,
+        })
+            .then(response => {
+                navigate('/thanh-toan')
+            })
+            .catch(error => {
+                alert(error.response.data.message);
+            });
+    };
+
+
+    const HandelCong = () => {
+        if (Count < tonKho) {
+            setCount(Count + 1);
+            return;
+        }
+        if (Count >= tonKho) {
+            alert('Sản phẩm đã đạt số lượng tối đa');
+            return;
+        }
+    };
+    const HandelTru = () => {
+        if (Count > 1) {
+            setCount(Count - 1);
+            return;
+        }
+    };
+
+    
+
 
 
     return (
