@@ -385,8 +385,16 @@ function CTSanPham(props) {
         tongSoSao1(dungLuongId);
     };
 
+    const sliderSettings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        beforeChange: (current, next) => setSelectedImageIndex(next),
+    };
 
-    
+
 
 
     return (
