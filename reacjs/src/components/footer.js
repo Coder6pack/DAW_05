@@ -8,7 +8,7 @@ import {
 
 import React from "react";
 
-export default function footer() {
+export default function Footer() {
     return (
         <>
             <footer className="page-footer shadow">
