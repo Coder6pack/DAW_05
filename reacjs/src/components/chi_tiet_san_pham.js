@@ -328,8 +328,65 @@ function CTSanPham(props) {
         }
     };
 
-    
+    const tongSoSao1 = (selectedCapacityId) => {
+        let sum = 0;
 
+        if (filteredRates && selectedCapacityId) {
+            filteredRates.forEach((item) => {
+                if (item.capacity_id === selectedCapacityId) {
+                    sum += item.star;
+                }
+            });
+        }
+
+        setSumStar(sum);
+    };
+
+
+
+    const getUniqueDungLuongs = (chiTietSanPham) => {
+        const unique = new Map();
+        return chiTietSanPham.filter(item => {
+            const isUnique = !unique.has(item.capacity.name);
+            unique.set(item.capacity.name, true);
+            return isUnique;
+        });
+    };
+
+    const handleDungLuongClick = (dungLuong, dungLuongId) => {
+        setselectedCapacity(dungLuong);
+        setselectedCapacityID(dungLuongId)
+
+
+        const mauSacCoSan = props.data.product_detail
+            .filter(item => item.capacity.name === dungLuong)
+            .map(item => item.color.name);
+
+
+        if (mauSacCoSan.length > 0) {
+            setselectedColor(mauSacCoSan[0]);
+        } else {
+            setselectedColor(null);
+        }
+
+
+        const chiTietSanPhamSelected = props.data.product_detail
+            .find(item => item.capacity.name === dungLuong && item.color.name === mauSacCoSan[0]);
+
+        if (chiTietSanPhamSelected) {
+            setTonKho(chiTietSanPhamSelected.quantity);
+            setCount(1);
+            setGiaBan(chiTietSanPhamSelected.price)
+            setDateEnd(chiTietSanPhamSelected.discount_detail.length > 0 ? chiTietSanPhamSelected.discount_detail[0].discount.date_end : null);
+            setCurrentPrice(chiTietSanPhamSelected.discount_detail.length > 0 ? chiTietSanPhamSelected.discount_detail[0].price : null);
+            setCurrentPercent(chiTietSanPhamSelected.discount_detail.length > 0 ? chiTietSanPhamSelected.discount_detail[0].percent : null);
+
+        }
+        tongSoSao1(dungLuongId);
+    };
+
+
+    
 
 
     return (
