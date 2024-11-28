@@ -143,15 +143,7 @@ function Product(props) {
                             <span className="mo_ta">%{props.member.description}</span>
                             <h6 className="name">{props.member.name}</h6>
 
-                            {props.member.product_detail && getUniqueDungLuongs(props.member.product_detail).map((item) => (
-                                <span
-                                    key={item.capacity.name}
-                                    className={`capacity ${isSelectedCapacity(item.capacity.name)}`}
-                                    onClick={(event) => handleCapacityChange(event, item.capacity.name)}
-                                >
-                                    {item.capacity?.name || ''}
-                                </span>
-                            ))}
+                           
 
                             <br /> <br />
 
@@ -159,7 +151,7 @@ function Product(props) {
                                 <span
                                     key={color}
                                     className={`color ${isSelectedColor(color)}`}
-                                    onClick={(event) => handleColorChange(event, color)}
+                                    onClick={() => (event, color)}
                                 >
                                     {color || ''}
                                 </span>
@@ -171,9 +163,9 @@ function Product(props) {
                                 (
                                     <>
                                         <div className='price-percent'><span className="price-have-discount">{currentPrice}₫</span> -{currentPercent}%</div>
-                                        <div className="price-discount">{currentDiscount}₫</div>
+                                        <div className="price-discount"></div>
                                         {averageRating !== null && (
-                                            <StarRating rating={averageRating} />
+                                            
                                         )}
 
                                     </>
@@ -182,9 +174,9 @@ function Product(props) {
                                 (
                                     <>
                                         <div>
-                                            <strong className="price">{currentPrice}₫</strong>
+                                            <strong className="price">₫</strong>
                                             {averageRating !== null && (
-                                                <StarRating rating={averageRating} />
+                                                
                                             )}
                                         </div>
                                     </>
