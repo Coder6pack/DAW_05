@@ -22,7 +22,7 @@ function GioHang() {
             try {
                 const userId = localStorage.getItem('id');
                 const token = localStorage.getItem('token');
-
+                
                 if (userId) {
                     const [cartResponse, statusResponse] = await Promise.all([
                         axios.get(`http://127.0.0.1:8000/api/get-cart/${userId}`),
@@ -42,7 +42,7 @@ function GioHang() {
                     setCartItems(cartItems)
                     setSumOrder(statusOrders.length);
                 }
-                else {
+                else{
                     return;
                 }
 
@@ -105,42 +105,40 @@ function GioHang() {
     };
 
     const timSoLuongTon = async (id, msId, dlId, index) => {
+
         try {
-            const response = await axios.post(
-                'http://127.0.0.1:8000/api/update-quantity',
-                {
-                    product_id: id,
-                    capacity_id: dlId,
-                    color_id: msId
-                },
-                {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+            const response = await axios.post('http://127.0.0.1:8000/api/update-quantity', {
+                product_id: id,
+                capacity_id: dlId,
+                color_id: msId
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
                 }
-            );
+            });
 
             if (response.status === 200) {
                 const maxQuantity = response.data.quantity;
-
-                setMaxQuantities((prevState) => ({
+                setMaxQuantities(prevState => ({
                     ...prevState,
                     [index]: maxQuantity
                 }));
-
                 if (maxQuantity > cartItems[index].quantity) {
                     const updatedCartItems = [...cartItems];
                     updatedCartItems[index].quantity++;
                     updatedCartItems[index].total = updatedCartItems[index].price * updatedCartItems[index].quantity;
                     setCartItems(updatedCartItems);
-                } else if (maxQuantity <= 0) {
+                }
+                if (maxQuantity <= 0) {
                     alert('Sản phẩm hiện không có sẵn trong kho!');
                 }
             }
         } catch (error) {
-            console.error("Có lỗi xảy ra:", error.response?.data?.message || "Lỗi không xác định");
-            alert(error.response?.data?.message || "Không thể kết nối đến server!");
+            console.error("Có lỗi xảy ra:", error.data.message);
+            
         }
+
+
     };
 
 
@@ -258,3 +256,4 @@ function GioHang() {
 }
 
 export default GioHang;
+
