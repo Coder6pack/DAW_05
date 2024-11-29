@@ -1,23 +1,39 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Tham khảo: https://help.github.com/articles/ignoring-files/
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# Bỏ qua thư mục và tệp dependencies
+# Bỏ qua thư mục và tệp không cần thiết
+node_modules/
+vendor/
 
-# testing
-/coverage
+# Bỏ qua thư mục coverage (thường dùng cho testing)
+coverage/
 
-# production
-/build
+# Bỏ qua thư mục production
+build/
+dist/
 
-# misc
+# Bỏ qua các tệp tạm thời
 .DS_Store
+Thumbs.db
+
+# Bỏ qua các tệp môi trường
+.env
+.env.*
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
+# Bỏ qua tệp log của npm/yarn
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Bỏ qua các tệp IDE và hệ điều hành
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Thêm các tệp khác cần bỏ qua của dự án bạn
+vendor/
