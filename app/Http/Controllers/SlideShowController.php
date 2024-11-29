@@ -6,6 +6,7 @@ use App\Models\Logo;
 use Illuminate\Http\Request;
 use App\Models\SlideShow;
 use App\Models\Product;
+use App\Models\Footers;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,8 +28,9 @@ class SlideShowController extends Controller
     public function getList()
     {
         $listSlide = SlideShow::paginate(3);
+        $footers = Footers::paginate(5);
         $loGo = Logo::first();
-        return view('slide-show.list', compact('listSlide', 'loGo'));
+        return view('slide-show.list', compact('listSlide', 'loGo', 'footers'));
     }
 
     public function addNew()
@@ -100,6 +102,111 @@ class SlideShowController extends Controller
             return redirect()->route('slide-show.list')->with(['Success' => "Cập nhật logo thành công!"]);
         } catch (Exception $e) {
             return back()->withInput()->with(['error' => "Error: " . $e->getMessage()]);
+        }
+    }
+
+    // footer
+    public function listFooters()
+    {
+        // Lấy tất cả các footer từ cơ sở dữ liệu
+        $footers = Footers::paginate(5); // Hoặc Footers::get() nếu không cần phân trang
+        // Trả về view với biến footers
+        return view('slide-show.list', compact('footers'));
+    }
+
+    /**
+     * Hiển thị chi tiết một Footer
+     */
+    public function showFooter($id)
+    {
+        $footer = Footers::find($id);
+
+        if (!$footer) {
+            return back()->with(['Error' => 'Footer không tồn tại']);
+        }
+
+        return view('footer.detail', compact('footer'));
+    }
+
+    /**
+     * Hiển thị form thêm Footer
+     */
+    public function addFooter()
+    {
+        return view('footer.add');
+    }
+
+    /**
+     * Xử lý thêm mới Footer
+     */
+    public function storeFooter(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'address' => 'nullable|string',
+                'description' => 'nullable|string',
+                'social_link' => 'nullable|string',
+                'contact' => 'nullable|string',
+            ]);
+
+            Footers::create($validated);
+
+            return redirect()->route('footer.list')->with(['Success' => 'Thêm Footer thành công!']);
+        } catch (Exception $e) {
+            return back()->withInput()->with(['Error' => 'Lỗi: ' . $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Hiển thị form cập nhật Footer
+     */
+    public function editFooter($id)
+    {
+        $footer = Footers::findOrFail($id);
+
+        if (!$footer) {
+            return redirect()->route('slide-show.list')->with(['Error' => 'Footer không tồn tại']);
+        }
+
+        return view('slide-show.updatefooters', compact('footer'));
+    }
+
+    /**
+     * Xử lý cập nhật Footer
+     */
+    public function updateFooter(Request $request, $id)
+    {
+        try {
+            $footer = Footers::findOrFail($id);
+
+            $validated = $request->validate([
+                'address' => 'nullable|string',
+                'description' => 'nullable|string',
+                'social_link' => 'nullable|string',
+                'contact' => 'nullable|string',
+            ]);
+
+            $footer->update($validated);
+
+            return redirect()->route('slide-show.list')->with(['Success' => 'Cập nhật Footer thành công!']);
+        } catch (Exception $e) {
+            return back()->withInput()->with(['Error' => 'Lỗi: ' . $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Xóa một Footer
+     */
+    public function deleteFooter($id)
+    {
+        try {
+            $footer = Footers::findOrFail($id);
+
+            $footer->delete();
+
+            return redirect()->route('footer.list')->with(['Success' => 'Xóa Footer thành công!']);
+        } catch (Exception $e) {
+            return back()->with(['Error' => 'Lỗi: ' . $e->getMessage()]);
         }
     }
 }

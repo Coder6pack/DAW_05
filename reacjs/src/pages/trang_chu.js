@@ -38,14 +38,11 @@ function Trangchu() {
     const [isHome, setIsHome] = useState(true);
     const [isNew, setIsNew] = useState(false);
     const [sortBy, setSortBy] = useState("popular");
-
     const [openDropdown, setOpenDropdown] = useState(false); // State để kiểm soát trạng thái dropdown
     const dropdownRef = useRef(null);
-
     const handleDropdownToggle = () => {
         setOpenDropdown(!openDropdown);
     };
-
     const handleClickOutside = (event) => {
         if (
             dropdownRef.current &&
@@ -84,7 +81,6 @@ function Trangchu() {
     useEffect(() => {
         const token = localStorage.getItem("token");
         const userId = localStorage.getItem("id");
-
         const fetchCart = async () => {
             if (userId) {
                 try {
@@ -167,7 +163,6 @@ function Trangchu() {
         setIsHome(true);
         fetchAllProducts();
     };
-
     const location = useLocation();
 
     const queryParams = queryString.parse(location.search);
@@ -214,7 +209,6 @@ function Trangchu() {
             debouncedFetchData.cancel();
         };
     }, []);
-
     const fetchAllProducts = () => {
         setLoading(true);
         axios({
@@ -378,7 +372,6 @@ function Trangchu() {
                         product.averageRating = 0;
                     }
                 });
-
                 if (sortBy === "popular") {
                     filteredProducts.sort(
                         (a, b) => b.averageRating - a.averageRating
@@ -506,7 +499,6 @@ function Trangchu() {
                                     >
                                         <i className="fas fa-bars"></i>
                                     </button>
-
                                     <div
                                         className="collapse navbar-collapse"
                                         id="navbarSupportedContent"

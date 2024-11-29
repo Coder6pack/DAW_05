@@ -7,10 +7,7 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle, faFacebook } from "@fortawesome/free-brands-svg-icons";
-
-import React from "react";
-
-export default function Login() {
+function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [rememberPassword, setRememberPassword] = useState(false);
@@ -90,6 +87,7 @@ export default function Login() {
     const handleRememberPasswordChange = (e) => {
         setRememberPassword(e.target.checked);
     };
+
     return (
         <>
             <Header />
@@ -194,3 +192,5 @@ export default function Login() {
         </>
     );
 }
+
+export default Login;

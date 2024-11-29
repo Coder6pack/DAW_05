@@ -5,7 +5,6 @@ import {
     faEnvelope,
     faMapMarker,
 } from "@fortawesome/free-solid-svg-icons";
-
 import React from "react";
 
 export default function Footer() {
@@ -16,7 +15,7 @@ export default function Footer() {
                     <div className="d-flex flex-wrap justify-content-between footer">
                         <div className="contact-footer">
                             {/* <a href="/#" className="d-flex align-items-center p-0 text-dark">
-                  <img alt="logo" className="img-logo" src="../img/logo.png"/>
+                <img alt="logo" className="img-logo" src="../img/logo.png"/>
                 </a> */}
                         </div>
                         <div className="contact-footer">

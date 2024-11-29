@@ -92,6 +92,56 @@
     <span class="error">Không có Slideshow nào!</span>
 @endif
 
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h3>FOOTER</h3>
+
+</div>
+
+
+@if(isset($footers) && $footers->isNotEmpty())
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Địa chỉ</th>
+                    <th>Mô tả</th>
+                    <th>Liên kết xã hội</th>
+                    <th>Liên hệ</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($footers as $footer)
+                    <tr>
+                        <td>{{ $footer->address }}</td>
+                        <td>{{ $footer->description }}</td>
+                        <td>{{ $footer->social_link }}</td>
+                        <td>{{ $footer->contact }}</td>
+                        <td>
+
+
+                            <a href="{{ route('slide-show.footer-edit', ['id' => $footer->id]) }}"
+                                class="btn btn-outline-primary" title="Cập nhật">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+
+
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <!-- Phân trang -->
+        {{ $footers->links('vendor.pagination.default') }}
+    </div>
+@else
+    <span class="error">Không có Footer nào!</span>
+@endif
+
+
+
 
 
 

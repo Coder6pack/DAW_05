@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             ScreenSeeder::class,
             ProductDescriptionSeeder::class,
             LogoSeeder::class,
+            Footers::class,
         ]);
     }
 }
