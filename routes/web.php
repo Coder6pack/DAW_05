@@ -18,6 +18,7 @@ use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FooterController;
 
 
 Route::middleware(['auth', 'check.status'])->group(function () {
@@ -152,6 +153,11 @@ Route::middleware(['auth', 'check.status'])->group(function () {
             Route::get('update/{id}', [SlideShowController::class, 'upDate'])->name('update');
             Route::put('update/{id}', [SlideShowController::class, 'hdUpdate'])->name('hd-update');
             Route::get('delete/{id}', [SlideShowController::class, 'delete'])->name('delete');
+            // footer
+
+            Route::get('/updatefooters/{id}', [SlideShowController::class, 'editFooter'])->name('footer-edit');
+            Route::put('/updatefooters/{id}', [SlideShowController::class, 'updateFooter'])->name('footer-update');
+
         });
     });
     Route::post('logo.update/{id}', [SlideShowController::class, 'updateLogo'])->name('logo.update');
