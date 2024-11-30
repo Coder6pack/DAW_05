@@ -89,28 +89,7 @@ class APIProductController extends Controller
     }
 
     // Tìm kiếm sản phẩm theo tên
-    public function timKiemTen($searchTerm)
-    {
-        $name = $searchTerm;
-        $proDuct = Product::with([
-            'brand',
-            'product_series',
-            'img',
-            'product_detail' => function ($query) {
-                $query->with('color', 'capacity');
-            }
-        ])->where('name', 'like', '%' . $name . '%')->get();
-        if ($proDuct->isEmpty()) {
-            return response()->json([
-                'success' => false,
-                'message' => "Sản phẩm không tồn tại"
-            ]);
-        }
-        return response()->json([
-            'success' => true,
-            'data' => $proDuct
-        ]);
-    }
+
 
     public function search(Request $request)
     {
@@ -134,10 +113,10 @@ class APIProductController extends Controller
                     }
                 ])
                 ->where('name', 'LIKE', '%' . $searchTerm . '%')->get();
-                return response()->json([
-                    'success' => true,
-                    'data' => $listProduct
-                ]);
+            return response()->json([
+                'success' => true,
+                'data' => $listProduct
+            ]);
         } else {
             return response()->json([], 400);
         }
@@ -155,7 +134,7 @@ class APIProductController extends Controller
             'product' => function ($query) use ($name) {
                 $query->select('id', 'name')->where('name', 'like', '%' . $name . '%');
             }
-        ])->whereBetween('price', [(int)$priceMin, (int)$priceMax])->get();
+        ])->whereBetween('price', [(int) $priceMin, (int) $priceMax])->get();
 
         if ($productDetail->isEmpty()) {
             return response()->json([
