@@ -354,7 +354,7 @@
                                 <span class="side-nav-menu-icon d-flex mr-3">
                                     <i class="fas fa-file-invoice"></i>
                                 </span>
-                                <span class="side-nav-fadeout-on-closed media-body">Hóa đơn</span>
+                                <span class="side-nav-fadeout-on-closed media-body">Đơn hàng</span>
                                 <span class="side-nav-control-icon d-flex">
                                     <i class="fas fa-angle-right side-nav-fadeout-on-closed"></i>
                                 </span>

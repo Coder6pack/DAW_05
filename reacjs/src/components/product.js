@@ -140,7 +140,7 @@ function Product(props) {
                     <NavLink to={`/product/${props.member.name}`} className="xem">
                         <div className="detail-product">
                             <img src={`http://127.0.0.1:8000/${props.member.img_product[0]?.img_url}`} id="img-sp" /><br />
-                            <span className="mo_ta">%{props.member.description}</span>
+                            <span className="mo_ta">{props.member.description}</span>
                             <h6 className="name">{props.member.name}</h6>
 
                             {props.member.product_detail && getUniqueDungLuongs(props.member.product_detail).map((item) => (
