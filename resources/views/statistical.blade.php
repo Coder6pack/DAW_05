@@ -29,8 +29,8 @@
     </div>
     <div class="count_container count_hd">
         <span data-feather="shopping-bag" class="align-text-bottom" id="icon-tk"></span>
-        <h5>Số lượng hóa đơn</h5>
-        <span>Hóa đơn: <strong id="inVoice"></strong></span><br />
+        <h5>Doanh thu</h5>
+        <span>Lượt mua: <strong id="inVoice"></strong></span><br />
         <span>Doanh thu: <strong id="totalInvoice"></strong></span><br />
         <span>Lãi: <strong id="interestRate"></strong></span>
     </div>
